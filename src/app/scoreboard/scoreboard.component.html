@@ -1,30 +1,68 @@
-    <div class="scoreboard">
-        <h2>Scoreboard</h2>
-
-        <div>
-            <form [formGroup]="scoreForm" (ngSubmit)="addScore()">
-              <input formControlName="user" placeholder="User Name" type="text" />
-              <input formControlName="score" placeholder="Score" type="number" />
-              <input formControlName="date" placeholder="Date" type="date" />
-              <button type="submit">Add Score</button>
-            </form>
-          </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Score</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor ="let entry of scoreEntries">
-                    <td>{{ entry.user }}</td>
-                    <td>{{ entry.score }}</td>
-                    <td>{{ entry.date | date }}</td>
-                    <td>{{ entry.locked ? 'Locked' : 'Open' }}</td>
-                </tr>
-            </tbody>
-        </table>
+<section class="scoreboard">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">COURSE RUN</p>
+      <h1>Learning Scoreboard</h1>
+      <p class="subtitle">A public log of steady progress through the course.</p>
     </div>
+    <div class="level-badge">
+      <span>LEVEL</span>
+      <strong>{{ level }}</strong>
+    </div>
+  </header>
+
+  <div class="metrics">
+    <article class="metric">
+      <span>Total XP</span>
+      <strong>{{ totalXp }}</strong>
+      <small>{{ nextLevelXp - totalXp }} XP to next level</small>
+    </article>
+    <article class="metric">
+      <span>Current streak</span>
+      <strong>{{ streak }} days</strong>
+      <small>Keep the run alive</small>
+    </article>
+    <article class="metric">
+      <span>Sections completed</span>
+      <strong>{{ sectionsCompleted }}</strong>
+      <small>Verified course progress</small>
+    </article>
+    <article class="metric">
+      <span>Course progress</span>
+      <strong>{{ courseProgress }}%</strong>
+      <small>Current learning track</small>
+    </article>
+  </div>
+
+  <section class="progress-card">
+    <div class="progress-heading">
+      <div>
+        <span>Level {{ level }} progress</span>
+        <strong>{{ totalXp }} / {{ nextLevelXp }} XP</strong>
+      </div>
+      <span>{{ levelProgress }}%</span>
+    </div>
+    <div class="track"><div class="fill" [style.width.%]="levelProgress"></div></div>
+  </section>
+
+  <section class="activity-card">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">RECENT</p>
+        <h2>Course activity</h2>
+      </div>
+      <span class="status">ACTIVE</span>
+    </div>
+
+    <div class="activity" *ngFor="let item of activities">
+      <div class="date">{{ item.date }}</div>
+      <div class="activity-copy">
+        <strong>{{ item.title }}</strong>
+        <span>{{ item.detail }}</span>
+      </div>
+      <div class="xp">+{{ item.xp }} XP</div>
+    </div>
+  </section>
+
+  <footer>Built as a lightweight progress log. Scores reflect completed learning activity.</footer>
+</section>
