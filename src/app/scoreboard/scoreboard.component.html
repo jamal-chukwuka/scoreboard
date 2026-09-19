@@ -2,7 +2,7 @@
   <nav class="topbar">
     <a class="brand" href="#">★ Learning League</a>
     <div class="nav-actions">
-      <span class="session" *ngIf="signedIn">Signed in</span>
+      <span class="session" [class.online]="signedIn">{{ signedIn ? '● Signed in' : '○ Signed out' }}</span>
       <button class="auth-button login" *ngIf="!signedIn" type="button" (click)="signIn()">Log in with GitHub</button>
       <button class="auth-button logout" *ngIf="signedIn" type="button" (click)="signOut()">Log out</button>
     </div>
@@ -29,9 +29,7 @@
       <div *ngIf="!player.avatar" class="avatar fallback">{{ player.name.charAt(0) }}</div>
       <div class="identity">
         <strong>{{ player.name }}</strong>
-        <a *ngIf="player.github" [href]="'https://github.com/' + player.github" target="_blank" rel="noopener">
-          <span aria-hidden="true">&#64;</span>{{ player.github }}
-        </a>
+        <a *ngIf="player.github" [href]="'https://github.com/' + player.github" target="_blank" rel="noopener"><span aria-hidden="true">&#64;</span>{{ player.github }}</a>
         <span *ngIf="!player.github">Waiting for GitHub connection</span>
       </div>
       <div class="current"><span>{{ player.track }}</span><strong>{{ player.note }}</strong></div>
@@ -44,8 +42,8 @@
     </article>
 
     <div class="members-note">
-      <strong>Where are the rest of the players?</strong>
-      <span>The original multiplayer app stored members in its Supabase database. This public rebuild has not reconnected that member store yet, so only the two records already migrated here can render. Their old data was not intentionally removed.</span>
+      <strong>Missing a friend?</strong>
+      <span>The redesign temporarily replaced the old member source with a small local player list. I have not invented replacement records; reconnecting the original member data is the next data-layer fix.</span>
     </div>
   </section>
 
@@ -56,14 +54,17 @@
     <div class="flow"><strong>Learn</strong><b>&rarr;</b><strong>Commit</strong><b>&rarr;</b><strong>Verify</strong><b>&rarr;</b><strong>Score</strong></div>
   </section>
 
-  <section class="login-card" id="login">
-    <div>
+  <section class="login-card" id="login" [class.signed-in]="signedIn">
+    <div class="auth-copy">
       <p class="eyebrow">PLAYER ACCESS</p>
-      <h2>{{ signedIn ? 'You are signed in' : 'Log in to your player profile' }}</h2>
-      <p>{{ signedIn ? 'Your player controls are ready.' : 'GitHub will be the identity and progress connection for the rebuilt league.' }}</p>
+      <h2>{{ signedIn ? 'You’re logged in' : 'You’re logged out' }}</h2>
+      <p>{{ signedIn ? 'Your player session is active. Use Log out when you are finished.' : 'Log in with GitHub to connect your player identity and progress.' }}</p>
     </div>
-    <button class="auth-button logout" *ngIf="signedIn" type="button" (click)="signOut()">Log out</button>
-    <button class="auth-button login" *ngIf="!signedIn" type="button" (click)="signIn()">Log in with GitHub</button>
+    <div class="auth-panel">
+      <span class="auth-state">{{ signedIn ? 'SIGNED IN' : 'SIGNED OUT' }}</span>
+      <button class="auth-button logout large" *ngIf="signedIn" type="button" (click)="signOut()">Log out</button>
+      <button class="auth-button login large" *ngIf="!signedIn" type="button" (click)="signIn()">Log in with GitHub</button>
+    </div>
   </section>
 
   <footer>Public progress only. Detailed learning evidence and private scoring signals stay outside the public scoreboard.</footer>
