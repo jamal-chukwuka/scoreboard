@@ -1,17 +1,26 @@
 <section class="scoreboard">
+  <nav class="topbar">
+    <a class="brand" href="#">★ Learning League</a>
+    <div class="nav-actions">
+      <span class="session" *ngIf="signedIn">Signed in</span>
+      <button class="auth-button login" *ngIf="!signedIn" type="button" (click)="signIn()">Log in with GitHub</button>
+      <button class="auth-button logout" *ngIf="signedIn" type="button" (click)="signOut()">Log out</button>
+    </div>
+  </nav>
+
   <header class="hero">
     <div>
-      <p class="eyebrow">LEARNING LEAGUE</p>
-      <h1>Scoreboard</h1>
-      <p class="subtitle">Track the work. Keep the streak. Bring receipts from GitHub.</p>
+      <p class="eyebrow">THIS WEEK'S ADVENTURE</p>
+      <h1>Keep learning.<br>Keep moving.</h1>
+      <p class="subtitle">Friendly competition for school, courses, coding practice and projects — with GitHub as the receipt.</p>
     </div>
-    <div class="github-only"><strong>GitHub</strong><span>proof of progress</span></div>
+    <div class="quest-stamp"><strong>GitHub</strong><span>progress proof</span></div>
   </header>
 
   <section class="league-card">
     <div class="section-heading">
-      <div><p class="eyebrow">THIS WEEK</p><h2>League table</h2></div>
-      <span class="status">{{ players.length }} PLAYERS</span>
+      <div><p class="eyebrow">PARTY STATUS</p><h2>League table</h2></div>
+      <span class="status">{{ players.length }} players</span>
     </div>
 
     <article class="player" *ngFor="let player of leaders; let i = index">
@@ -23,20 +32,39 @@
         <a *ngIf="player.github" [href]="'https://github.com/' + player.github" target="_blank" rel="noopener">
           <span aria-hidden="true">&#64;</span>{{ player.github }}
         </a>
-        <span *ngIf="!player.github">GitHub not connected yet</span>
+        <span *ngIf="!player.github">Waiting for GitHub connection</span>
       </div>
       <div class="current"><span>{{ player.track }}</span><strong>{{ player.note }}</strong></div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Progress</span><strong>{{ player.progress }}%</strong></div>
+        <div class="progress"><i [style.width.%]="player.progress"></i></div>
+      </div>
       <div class="streak"><span>Streak</span><strong>{{ player.streak }}d</strong></div>
       <div class="points"><strong>{{ player.xp }}</strong><span>XP</span></div>
     </article>
+
+    <div class="members-note">
+      <strong>Where are the rest of the players?</strong>
+      <span>The original multiplayer app stored members in its Supabase database. This public rebuild has not reconnected that member store yet, so only the two records already migrated here can render. Their old data was not intentionally removed.</span>
+    </div>
   </section>
 
   <section class="how-card">
-    <div><p class="eyebrow">ONE SYSTEM</p><h2>Any course. GitHub evidence.</h2></div>
-    <p>Schoolwork, coding practice, courses and projects can all count. Each player keeps a GitHub repository with progress records; the scoreboard reads only the public progress projection, not private study data.</p>
+    <div><p class="eyebrow">PICK YOUR QUEST</p><h2>Any course. GitHub evidence.</h2></div>
+    <p>Schoolwork, coding practice, courses and projects can all count. Each player can use a GitHub repository as the common progress ledger.</p>
     <div class="tracks"><span *ngFor="let track of supportedTracks">{{ track }}</span></div>
     <div class="flow"><strong>Learn</strong><b>&rarr;</b><strong>Commit</strong><b>&rarr;</b><strong>Verify</strong><b>&rarr;</b><strong>Score</strong></div>
   </section>
 
-  <footer>Public progress only. Detailed learning evidence and scoring logic stay outside the public scoreboard.</footer>
+  <section class="login-card" id="login">
+    <div>
+      <p class="eyebrow">PLAYER ACCESS</p>
+      <h2>{{ signedIn ? 'You are signed in' : 'Log in to your player profile' }}</h2>
+      <p>{{ signedIn ? 'Your player controls are ready.' : 'GitHub will be the identity and progress connection for the rebuilt league.' }}</p>
+    </div>
+    <button class="auth-button logout" *ngIf="signedIn" type="button" (click)="signOut()">Log out</button>
+    <button class="auth-button login" *ngIf="!signedIn" type="button" (click)="signIn()">Log in with GitHub</button>
+  </section>
+
+  <footer>Public progress only. Detailed learning evidence and private scoring signals stay outside the public scoreboard.</footer>
 </section>
