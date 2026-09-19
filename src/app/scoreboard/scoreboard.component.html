@@ -2,7 +2,7 @@
   <nav class="topbar">
     <a class="brand" href="#">★ Learning League</a>
     <div class="nav-actions">
-      <span class="session" [class.online]="signedIn">{{ signedIn ? '● Signed in' : '○ Signed out' }}</span>
+      <span class="session" [class.online]="signedIn">{{ signedIn ? '● Signed in ' + currentUser : '○ Signed out' }}</span>
       <button class="auth-button login" *ngIf="!signedIn" type="button" (click)="signIn()">Log in with GitHub</button>
       <button class="auth-button logout" *ngIf="signedIn" type="button" (click)="signOut()">Log out</button>
     </div>
@@ -56,7 +56,8 @@
       <p>{{ signedIn ? 'Your player session is active. Use Log out when you are finished.' : 'Log in with GitHub to connect your player identity and progress.' }}</p>
     </div>
     <div class="auth-panel">
-      <span class="auth-state">{{ signedIn ? 'SIGNED IN' : 'SIGNED OUT' }}</span>
+      <span class="auth-state">{{ signedIn ? 'SIGNED IN ' + currentUser : 'SIGNED OUT' }}</span>
+      <p *ngIf="authError" class="auth-error">{{ authError }}</p>
       <button class="auth-button logout large" *ngIf="signedIn" type="button" (click)="signOut()">Log out</button>
       <button class="auth-button login large" *ngIf="!signedIn" type="button" (click)="signIn()">Log in with GitHub</button>
     </div>
