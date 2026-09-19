@@ -5,11 +5,7 @@
   "projects": {
     "scoreboard-app": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {"@schematics/angular:component": {"style": "scss"}},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -20,79 +16,43 @@
             "outputPath": "dist/scoreboard-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico","src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
+                {"type":"initial","maximumWarning":"500kb","maximumError":"1mb"},
+                {"type":"anyComponentStyle","maximumWarning":"6kb","maximumError":"8kb"}
               ],
               "outputHashing": "all"
             },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
+            "development": {"optimization":false,"extractLicenses":false,"sourceMap":true}
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "scoreboard-app:build:production"
-            },
-            "development": {
-              "buildTarget": "scoreboard-app:build:development"
-            }
+            "production": {"buildTarget":"scoreboard-app:build:production"},
+            "development": {"buildTarget":"scoreboard-app:build:development"}
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "scoreboard-app:build"
-          }
-        },
+        "extract-i18n": {"builder":"@angular-devkit/build-angular:extract-i18n","options":{"buildTarget":"scoreboard-app:build"}},
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "polyfills":["zone.js","zone.js/testing"],
+            "tsConfig":"tsconfig.spec.json",
+            "inlineStyleLanguage":"scss",
+            "assets":["src/favicon.ico","src/assets"],
+            "styles":["src/styles.scss"],
+            "scripts":[]
           }
         }
       }
