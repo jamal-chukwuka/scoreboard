@@ -20,7 +20,9 @@
       <div *ngIf="!player.avatar" class="avatar fallback">{{ player.name.charAt(0) }}</div>
       <div class="identity">
         <strong>{{ player.name }}</strong>
-        <a *ngIf="player.github" [href]="'https://github.com/' + player.github" target="_blank" rel="noopener">@{{ player.github }}</a>
+        <a *ngIf="player.github" [href]="'https://github.com/' + player.github" target="_blank" rel="noopener">
+          <span aria-hidden="true">&#64;</span>{{ player.github }}
+        </a>
         <span *ngIf="!player.github">GitHub not connected yet</span>
       </div>
       <div class="current"><span>{{ player.track }}</span><strong>{{ player.note }}</strong></div>
@@ -33,7 +35,7 @@
     <div><p class="eyebrow">ONE SYSTEM</p><h2>Any course. GitHub evidence.</h2></div>
     <p>Schoolwork, coding practice, courses and projects can all count. Each player keeps a GitHub repository with progress records; the scoreboard reads only the public progress projection, not private study data.</p>
     <div class="tracks"><span *ngFor="let track of supportedTracks">{{ track }}</span></div>
-    <div class="flow"><strong>Learn</strong><b>→</b><strong>Commit</strong><b>→</b><strong>Verify</strong><b>→</b><strong>Score</strong></div>
+    <div class="flow"><strong>Learn</strong><b>&rarr;</b><strong>Commit</strong><b>&rarr;</b><strong>Verify</strong><b>&rarr;</b><strong>Score</strong></div>
   </section>
 
   <footer>Public progress only. Detailed learning evidence and scoring logic stay outside the public scoreboard.</footer>
